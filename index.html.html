@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>MarketArena · Participant terminal</title>
+  <style>
+:root{--bg:#071019;--panel:#0e1c28;--line:#263d4d;--text:#eef5f8;--muted:#a1b5c3;--mint:#62dbaa;--red:#ff9298;--gold:#edca7d;--blue:#77bbec;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}button,input,select{border-radius:8px}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,.scroll:focus-visible{outline:2px solid var(--gold);outline-offset:3px}.hide,[hidden]{display:none!important}.wrap{max-width:1500px;margin:auto;padding:24px}.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px;min-width:0}h1,h2,h3,p{margin-top:0}h1{font-size:28px;letter-spacing:-1px;margin-bottom:4px}h2{font-size:18px;letter-spacing:-.35px;margin:3px 0 16px}h3{font-size:15px}.accent,.pos{color:var(--mint)}.neg{color:var(--red)}.neutral,.muted,.k small{color:var(--muted)}.small,small{font-size:12px}.eyebrow{color:var(--mint);font-size:10px;letter-spacing:1.7px;font-weight:750;margin-bottom:5px}.version{border:1px solid var(--line);border-radius:4px;padding:2px 4px;margin-left:6px;color:var(--muted);letter-spacing:0}.top,.row,.actions{display:flex;justify-content:space-between;align-items:center;gap:12px}.top{margin-bottom:10px}.top p{margin:0}.actions{justify-content:flex-end;flex-wrap:wrap;gap:8px}.wrap-row{flex-wrap:wrap}.grid{display:grid;gap:16px;align-items:start}.kpis{grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}.k{padding:15px 12px}.k b{display:block;font-size:clamp(14px,1.28vw,19px);font-variant-numeric:tabular-nums;margin-top:7px;overflow-wrap:anywhere}.btn,.tab{border:1px solid #3a566b;background:#142838;color:var(--text);padding:8px 12px}.btn:hover:enabled,.tab:hover{background:#203b50}.buy{background:#173c32;border-color:#39795f}.sell{background:#3b242c;border-color:#874e5a}.full{width:100%}.status{font-size:11px;font-weight:800;padding:6px 10px;border:1px solid #596d7b;border-radius:20px;letter-spacing:.6px}.OPEN{color:var(--mint);border-color:#39795f}.PAUSED{color:var(--gold)}.CLOSED{color:var(--red)}.sync{color:var(--muted);font-size:11px;margin:8px 0 20px}.sync.error{color:var(--gold)}.notice{background:#163127;border:1px solid #39795f;padding:12px 16px;border-radius:8px;margin-bottom:12px}.tabs{display:flex;gap:5px;border-bottom:1px solid var(--line);margin-bottom:20px;overflow:auto}.tab{background:transparent;border-color:transparent;border-radius:5px 5px 0 0;white-space:nowrap;padding:12px 16px}.tab.active{color:var(--mint);border-bottom-color:var(--mint);background:#102a25}.two{grid-template-columns:minmax(0,3fr) minmax(245px,1fr)}.analytics{grid-template-columns:minmax(0,1.65fr) minmax(300px,1fr)}.account-details{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.detail-value{display:block;font-size:19px;margin-top:6px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.scroll{overflow:auto;max-width:100%;border-radius:5px}table{width:100%;border-collapse:collapse;white-space:nowrap;font-variant-numeric:tabular-nums}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line)}th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}td{font-size:12px}td .muted{font-size:11px}td:first-child,th:first-child{padding-left:0}td .btn{padding:6px 8px;font-size:11px}.row-buttons{display:flex;gap:5px}.ticker{font-weight:750;letter-spacing:.3px}.news{max-height:750px;overflow:auto}.news article{border-bottom:1px solid var(--line);padding:15px 0}.news article:first-child{padding-top:0}.news h3{margin:7px 0;font-size:14px}.news p{font-size:12px;color:var(--muted);margin:0;white-space:pre-wrap}.news time{font-size:10px;color:var(--muted)}.login{min-height:100dvh;display:grid;place-items:center;padding:20px;background:radial-gradient(ellipse at 30% 0,#142f3d 0,transparent 65%)}.login-card{width:min(440px,100%);padding:32px}.login-card h1{font-size:40px;margin:8px 0 12px}.login-rules{display:flex;flex-wrap:wrap;gap:8px;padding-top:16px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}.login-rules span{border:1px solid var(--line);padding:4px 7px;border-radius:4px}.field{margin:18px 0}.field label{display:block;font-size:12px;margin-bottom:7px}.field input{width:100%;padding:11px;background:#09141e;border:1px solid #3a566b;color:var(--text)}select{background:#09141e;color:var(--text);border:1px solid #3a566b;padding:7px;max-width:100%}.chart{min-height:235px;width:100%;position:relative}.chart svg{width:100%;height:auto;display:block;overflow:visible}.chart-summary{display:flex;gap:18px;flex-wrap:wrap;margin:3px 0 18px}.chart-summary b{display:block;font-size:22px;font-variant-numeric:tabular-nums}.chart-axis{fill:var(--muted);font:11px system-ui}.chart-grid{stroke:var(--line);stroke-width:1}.chart-line{fill:none;stroke:var(--mint);stroke-width:2;vector-effect:non-scaling-stroke}.chart-baseline{stroke:var(--gold);stroke-dasharray:5 5;stroke-width:1;vector-effect:non-scaling-stroke}.chart-dot{fill:var(--mint);stroke:var(--panel);stroke-width:2}.chart-empty,.empty{display:grid;place-items:center;text-align:center;color:var(--muted);padding:36px 15px;min-height:150px}.chart-key{font-size:11px;color:var(--gold);margin:5px 0}.chart-tooltip{min-height:22px;color:var(--text);font-size:12px;margin:5px 0}.donut-layout{display:flex;align-items:center;gap:16px;flex-wrap:wrap}.donut{width:160px;flex:0 0 160px}.legend{width:100%;max-height:235px;overflow:auto}.legend-item{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center;font-size:12px;padding:6px 0}.swatch{width:9px;height:9px;border-radius:2px}.legend-sub{grid-column:2 / 4;color:var(--muted);font-size:11px}.bar{height:3px;border-radius:2px;background:var(--line);grid-column:2 / 4}.bar span{display:block;height:100%;border-radius:2px}details{margin:12px 0;color:var(--muted);font-size:12px}summary{cursor:pointer}details .scroll{max-height:280px;margin-top:10px}.pager{padding-top:18px}.record-id{font-size:11px;word-break:break-all;white-space:normal;min-width:130px}.final-hero{padding:28px;background:linear-gradient(115deg,#14372d,var(--panel));border-color:#39795f}.final-rank{font-size:48px;line-height:1;color:var(--gold);font-weight:750}.my-result{background:#183a30}.results-table tr.my-result td:first-child{padding-left:10px}.badge{display:inline-block;font-size:9px;background:#245440;color:var(--mint);border-radius:4px;padding:2px 5px;margin-left:7px}dialog{width:min(800px,calc(100% - 30px));max-height:90dvh;overflow:auto;background:#0d1b27;border:1px solid #355067;border-radius:12px;color:var(--text);padding:24px}dialog::backdrop{background:#000b}dialog.order{max-width:460px}.x{float:right;background:transparent;border:0;color:var(--text);font-size:24px;padding:0 8px}.facts{grid-template-columns:repeat(3,minmax(0,1fr))}.facts>div{border:1px solid var(--line);padding:9px;border-radius:8px;overflow-wrap:anywhere}.facts b{display:block;margin-top:4px}.ticket-row{display:flex;justify-content:space-between;gap:12px;margin:12px 0}.ticket-error{color:var(--gold);font-size:12px;white-space:pre-wrap}.toast{position:fixed;right:18px;bottom:18px;background:#173047;border:1px solid #3a566b;padding:14px 18px;border-radius:8px;max-width:min(520px,calc(100% - 36px));box-shadow:0 10px 50px #0007;z-index:10}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}footer{margin:24px 0 8px;color:var(--muted);font-size:10px;text-align:center}
+@media(max-width:1150px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.k b{font-size:20px}.two{grid-template-columns:minmax(0,2.5fr) minmax(220px,1fr)}.analytics{grid-template-columns:1fr}.donut-layout{flex-wrap:nowrap}.legend{flex:1}.account-details{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.two{grid-template-columns:1fr}.news{max-height:380px}.wrap{padding:16px}.card{padding:16px}.top{align-items:flex-start}.top .actions{max-width:190px}.top h1{font-size:25px}.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.k{padding:12px 9px}.k b{font-size:16px}.top{flex-wrap:wrap}.top .actions{max-width:none;justify-content:flex-start}.chart{min-height:190px}.chart-axis{font-size:12px}.chart-summary b{font-size:19px}.tab{padding:10px 12px}.row.wrap-row{align-items:flex-start}.account-details .card{padding:12px}.detail-value{font-size:16px}.donut-layout{flex-wrap:wrap;justify-content:center}.donut{width:150px;flex-basis:150px}.legend{flex-basis:100%}.pager{font-size:11px}.login-card{padding:24px}.news-card{margin-bottom:0}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+</style>
+</head>
+<body>
+  <section id="login" class="login">
+    <form id="login-form" class="card login-card">
+      <div class="eyebrow">STOCK TRADING COMPETITION</div>
+      <h1>MarketArena<span class="accent">.</span></h1>
+      <p class="muted">Your team. Your strategy. Your market.</p>
+      <div class="field"><label for="code">Team code</label><input id="code" autocomplete="username" placeholder="TEST01" required></div>
+      <div class="field"><label for="pass">Password</label><input id="pass" type="password" autocomplete="current-password" required></div>
+      <button id="signin" class="btn buy full" type="submit">Sign in</button>
+      <p id="err" class="neg" role="alert"></p>
+      <p class="muted small">Use the private credentials issued by your organizer.</p>
+      <div class="login-rules"><span>15 companies</span><span>PKR 1,000,000 starting cash</span><span>Whole shares</span></div>
+    </form>
+  </section>
+  <main id="app" class="hide">
+    <div class="wrap">
+      <header class="top">
+        <div><div class="eyebrow">PARTICIPANT TERMINAL <span class="version">V2</span></div><h1>MarketArena<span class="accent">.</span></h1><p id="team" class="muted"></p></div>
+        <div class="actions"><span id="status" class="status">—</span><button id="refresh" class="btn">Refresh</button><button id="out" class="btn">Sign out</button></div>
+      </header>
+      <div id="sync" class="sync" role="status">Loading account…</div>
+      <div id="notice" class="notice hide" role="status"></div>
+      <nav class="tabs" aria-label="Participant views">
+        <button class="tab active" data-view="market" aria-current="page">Market</button>
+        <button class="tab" data-view="account">My account</button>
+        <button class="tab" data-view="history">Trade history</button>
+        <button id="results-tab" class="tab hide" data-view="results">Final results</button>
+      </nav>
+      <section class="grid kpis" aria-label="My account overview">
+        <div class="card k"><small>Portfolio value</small><b id="nav">—</b></div>
+        <div class="card k"><small>Available cash</small><b id="cash">—</b></div>
+        <div class="card k"><small>Holdings value</small><b id="hv">—</b></div>
+        <div class="card k"><small>Overall return</small><b id="ret">—</b></div>
+        <div class="card k"><small>Unrealized P/L</small><b id="upnl">—</b></div>
+        <div class="card k"><small>Realized P/L</small><b id="rpnl">—</b></div>
+      </section>
+      <section id="view-market" class="view">
+        <div class="grid two">
+          <div class="main-column">
+            <section class="card">
+              <div class="row"><div><div class="eyebrow">THE MARKET</div><h2>Company prices</h2></div><span id="hint" class="muted"></span></div>
+              <div class="scroll" tabindex="0" role="region" aria-label="Company prices"><table><thead><tr><th>Stock / company</th><th>Sector</th><th>Price</th><th>Move</th><th>My holding</th><th>Actions</th></tr></thead><tbody id="stocks"></tbody></table></div>
+            </section>
+            <section class="card" id="price-panel">
+              <div class="row wrap-row"><div><div class="eyebrow">RELEASED PRICES</div><h2>Price history</h2></div><div class="actions"><label for="chart-stock" class="sr-only">Chart company</label><select id="chart-stock"></select><label for="price-range" class="sr-only">Price chart range</label><select id="price-range"><option value="all">All available</option><option value="20">Last 20 observations</option></select></div></div>
+              <div id="price-summary" class="chart-summary"></div><div id="price-chart" class="chart"></div>
+              <p id="price-note" class="muted small">Prices change when the organizer releases an update.</p>
+              <details><summary>View price observations</summary><div id="price-data" class="scroll"></div></details>
+            </section>
+          </div>
+          <aside class="card news-card"><div class="eyebrow">MARKET INTELLIGENCE</div><h2>Released news</h2><div id="news" class="news"></div></aside>
+        </div>
+      </section>
+      <section id="view-account" class="view hide">
+        <div id="account-details" class="grid account-details"></div>
+        <div class="grid analytics">
+          <section class="card"><div class="row wrap-row"><div><div class="eyebrow">YOUR JOURNEY</div><h2>Portfolio performance</h2></div><label class="small">Show <select id="performance-mode"><option value="value">Portfolio value</option><option value="return">Return %</option></select></label></div><div id="performance-chart" class="chart"></div><p id="performance-note" class="muted small"></p><details><summary>View performance observations</summary><div id="performance-data" class="scroll"></div></details></section>
+          <section class="card"><div class="eyebrow">WHERE YOU STAND</div><h2>Portfolio allocation</h2><div id="allocation"></div><p class="muted small">Current market values as a share of total portfolio value, including cash.</p></section>
+        </div>
+        <section class="card"><div class="row"><h2>My holdings</h2><span class="muted small">Average cost shown to 4 decimals</span></div><div class="scroll" tabindex="0" role="region" aria-label="My holdings"><table><thead><tr><th>Company</th><th>Quantity</th><th>Average cost</th><th>Invested amount</th><th>Current price</th><th>Holding value</th><th>Unrealized P/L</th><th>Return on cost</th><th>Allocation</th><th>Actions</th></tr></thead><tbody id="holdings"></tbody></table></div></section>
+      </section>
+      <section id="view-history" class="view hide">
+        <section class="card"><div class="row wrap-row"><div><div class="eyebrow">YOUR COMPLETE RECORD</div><h2>Executed trades</h2><p id="history-count" class="muted small"></p></div><div class="actions"><label for="history-side" class="sr-only">Filter trade side</label><select id="history-side"><option value="ALL">All trades</option><option value="BUY">Buys</option><option value="SELL">Sells</option></select><button id="export" class="btn">Download CSV</button></div></div><div class="scroll" tabindex="0" role="region" aria-label="Executed trades"><table><thead><tr><th>Time (PKT)</th><th>Stock</th><th>Side</th><th>Quantity</th><th>Execution price</th><th>Gross amount</th><th>Realized P/L</th><th>Cash after</th><th>Record</th></tr></thead><tbody id="trades"></tbody></table></div><div class="row pager"><button id="prev-page" class="btn">Previous</button><span id="page-label" class="muted"></span><button id="next-page" class="btn">Next</button></div></section>
+      </section>
+      <section id="view-results" class="view hide"><div id="results"></div></section>
+      <footer>Private simulated market · PKR virtual currency · Whole-share market orders · All times PKT</footer>
+    </div>
+  </main>
+  <dialog id="modal"></dialog><div id="toast" class="toast hide" role="status" aria-live="polite"></div>
+  <noscript><p>Enable JavaScript to use the participant terminal.</p></noscript>
+  <script type="module">
+// Pure display/valuation helpers. No account queries, forecasts or stored user data.
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money = (v, digits=2) => Number.isFinite(Number(v)) && v != null ? 'PKR '+Number(v).toLocaleString('en-PK',{minimumFractionDigits:digits,maximumFractionDigits:digits}) : '—';
+const percent = v => Number.isFinite(Number(v)) && v != null ? (Number(v)>0?'+':'')+Number(v).toFixed(2)+'%' : '—';
+const tone = v => +v>0?'pos':+v<0?'neg':'neutral';
+const time = v => v && Number.isFinite(new Date(v).getTime()) ? new Date(v).toLocaleString('en-GB',{timeZone:'Asia/Karachi',day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}) : '—';
+function epoch(value) {
+  // Preserve Postgres microseconds: old/new price points are 1 µs apart.
+  const extra = String(value).match(/\.(\d+)/)?.[1]?.padEnd(6,'0').slice(3,6) || '0';
+  return Date.parse(value) + Number(extra)/1000;
+}
+function pricePoints(rows) {
+  return rows.map(p=>({x:epoch(p.recorded_at),y:Number(p.price),label:time(p.recorded_at)}))
+    .filter(p=>Number.isFinite(p.x)&&Number.isFinite(p.y)&&p.y>0).sort((a,b)=>a.x-b.x);
+}
+function reconstructPerformance({transactions, histories, portfolio, startedAt, asOf}) {
+  const start=Number(portfolio.starting_cash), end=epoch(asOf), beginning=epoch(startedAt);
+  if (!(start>0) || !Number.isFinite(beginning) || !Number.isFinite(end)) throw new Error('Account history is unavailable.');
+  if (transactions.length !== Number(portfolio.trade_count)) throw new Error('Waiting for the complete trade record. Refresh to retry.');
+  const events=[], quantities=new Map(), prices=new Map();
+  const used=new Set(transactions.map(t=>t.stock_id));
+  for (const id of used) {
+    const h=histories.get(id);
+    if (!h || h.error) throw new Error('Price history is unavailable. Refresh to retry.');
+    if (h.truncated) throw new Error('Available price history is incomplete; a full performance curve cannot be verified.');
+    for (const p of pricePoints(h.rows)) events.push({x:p.x,price:p.y,id,type:'price'});
+  }
+  for (const t of transactions) events.push({x:epoch(t.created_at),id:t.stock_id,price:Number(t.price),type:'trade',trade:t});
+  events.sort((a,b)=>a.x-b.x || (a.type==='price'?-1:1));
+  let cash=start;
+  const points=[{x:beginning,y:start,label:'Starting balance · '+time(startedAt)}];
+  const value=()=>{
+    let total=cash;
+    for (const [id,qty] of quantities) {
+      if (qty && !prices.has(id)) throw new Error('A historical price is missing.');
+      total+=qty*(prices.get(id)||0);
+    }
+    return Math.round(total*100)/100;
+  };
+  for (const event of events) {
+    if (event.x>end) continue;
+    prices.set(event.id,event.price);
+    if (event.type==='trade') {
+      const t=event.trade, q=Number(t.quantity);
+      if (!Number.isSafeInteger(q) || q<=0 || !['BUY','SELL'].includes(t.side)) throw new Error('An invalid trade record prevents chart calculation.');
+      quantities.set(event.id,(quantities.get(event.id)||0)+(t.side==='BUY'?q:-q));
+      cash+=Number(t.gross_amount)*(t.side==='BUY'?-1:1);
+      cash=Math.round(cash*100)/100;
+      if (quantities.get(event.id)<0 || cash<0) throw new Error('Account history does not reconcile.');
+    }
+    if (event.x>=beginning && (event.type==='trade'||(quantities.get(event.id)||0)>0)) {
+      const point={x:event.x,y:value(),label:time(new Date(event.x))};
+      if(points.at(-1).x===point.x) points[points.length-1]=point; else points.push(point);
+    }
+  }
+  // Use current prices only at the current observation, never to revalue the past.
+  for (const h of portfolio.holdings||[]) {
+    if ((quantities.get(h.stock_id)||0)!==Number(h.quantity)) throw new Error('Holdings changed while loading. Refresh to retry.');
+    prices.set(h.stock_id,Number(h.current_price));
+  }
+  for (const [id,q] of quantities) if(q && !(portfolio.holdings||[]).some(h=>h.stock_id===id)) throw new Error('Holdings changed while loading. Refresh to retry.');
+  if(Math.abs(cash-Number(portfolio.cash_balance))>.011 || Math.abs(value()-Number(portfolio.total_portfolio_value))>.02) throw new Error('Account history does not match the latest balance. Refresh to retry.');
+  points.push({x:end,y:Number(portfolio.total_portfolio_value),label:'Latest account · '+time(asOf)});
+  return points;
+}
+const compactMoney = v => Math.abs(v)>=1e6?'PKR '+(v/1e6).toFixed(2)+'m':Math.abs(v)>=1e3?'PKR '+(v/1e3).toFixed(1)+'k':'PKR '+v.toFixed(2);
+function lineChart(points,{id='chart',label='Chart',format=money,percentMode=false,baseline=null}={}) {
+  if(!points.length) return '<div class="chart-empty">No observations available yet.</div>';
+  const W=780,H=250,left=91,right=18,top=20,bottom=42;
+  let lo=Infinity,hi=-Infinity;
+  for(const p of points){lo=Math.min(lo,p.y);hi=Math.max(hi,p.y)}
+  if(baseline!=null){lo=Math.min(lo,baseline);hi=Math.max(hi,baseline)}
+  const spread=Math.max(hi-lo,Math.abs(hi)*.002,percentMode?.1:.01);lo-=spread*.16;hi+=spread*.16;
+  const a=points[0].x,b=points.at(-1).x;
+  const sx=x=>a===b?(left+W-right)/2:left+(x-a)/(b-a)*(W-left-right);
+  const sy=y=>H-bottom-(y-lo)/(hi-lo)*(H-top-bottom);
+  const path=points.map((p,i)=>i?`H${sx(p.x).toFixed(2)} V${sy(p.y).toFixed(2)}`:`M${sx(p.x).toFixed(2)},${sy(p.y).toFixed(2)}`).join(' ');
+  const grid=Array.from({length:4},(_,i)=>{const v=lo+(hi-lo)*i/3,y=sy(v);return `<line class="chart-grid" x1="${left}" x2="${W-right}" y1="${y}" y2="${y}"/><text class="chart-axis" x="${left-9}" y="${y+4}" text-anchor="end">${esc(percentMode?v.toFixed(2)+'%':compactMoney(v))}</text>`}).join('');
+  const axisDate=x=>new Date(x).toLocaleString('en-GB',{timeZone:'Asia/Karachi',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:false});
+  const summary=`${label}: ${points.length} observations. First ${format(points[0].y)}; latest ${format(points.at(-1).y)}.`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="${id}-title ${id}-desc" data-chart="${id}"><title id="${id}-title">${esc(label)}</title><desc id="${id}-desc">${esc(summary)} Values change in steps at recorded observations. All times PKT. Full values are available in the observation table.</desc>${grid}${baseline==null?'':`<line class="chart-baseline" x1="${left}" x2="${W-right}" y1="${sy(baseline)}" y2="${sy(baseline)}"/>`}<path class="chart-line" d="${path}"/><circle class="chart-dot" cx="${sx(points.at(-1).x)}" cy="${sy(points.at(-1).y)}" r="4"/><text class="chart-axis" x="${left}" y="${H-11}">${esc(axisDate(a))}</text>${a===b?'':`<text class="chart-axis" x="${W-right}" y="${H-11}" text-anchor="end">${esc(axisDate(b))}</text>`}</svg><p class="chart-tooltip" id="${id}-tooltip">${esc(points.length===1?'Only the current observation is available.':'Hover or tap the chart to inspect an observation.')}</p>`;
+}
+function bindChart(element,points,{format=money,id='chart'}={}) {
+  const svg=element.querySelector('svg'),out=element.querySelector('.chart-tooltip');
+  if(!svg || !points.length)return;
+  const select=event=>{
+    const bounds=svg.getBoundingClientRect(),x=(event.clientX-bounds.left)/bounds.width*780;
+    const target=points[0].x+Math.max(0,Math.min(1,(x-91)/(780-91-18)))*(points.at(-1).x-points[0].x);
+    let nearest=points[0];for(const p of points)if(Math.abs(p.x-target)<Math.abs(nearest.x-target))nearest=p;
+    out.textContent=(nearest.label||time(new Date(nearest.x)))+' PKT · '+format(nearest.y);
+  };
+  svg.addEventListener('pointermove',select);svg.addEventListener('click',select);
+}
+function observationsTable(points,format=money,label='Value') {
+  return `<table><thead><tr><th>Time / observation (PKT)</th><th>${esc(label)}</th></tr></thead><tbody>${points.map(p=>`<tr><td>${esc(p.label||time(new Date(p.x)))}</td><td>${esc(format(p.y))}</td></tr>`).join('')}</tbody></table>`;
+}
+function allocationChart(portfolio) {
+  const colors=['#77bbec','#62dbaa','#edca7d','#c4a5ef','#ff9298','#76d5dd','#f3ab7f','#9cce83','#a6b8ee','#d79dd6','#c9bc8a','#f39cbd','#80b7aa','#aea3f5','#87c3d2','#d6d68b'];
+  const total=Number(portfolio.total_portfolio_value);
+  const entries=[{label:'Cash',value:Number(portfolio.cash_balance)},...(portfolio.holdings||[]).filter(h=>Number(h.quantity)>0).map(h=>({label:h.ticker,value:Number(h.market_value)}))];
+  if(!(total>0))return '<div class="empty">No positive portfolio value to allocate.</div>';
+  let offset=0;
+  const arcs=entries.map((s,i)=>{const pct=s.value/total*100,start=offset;offset+=pct;return `<circle cx="90" cy="90" r="67" fill="none" stroke="${colors[i%colors.length]}" stroke-width="22" pathLength="100" stroke-dasharray="${Math.max(0,pct)} ${100-Math.max(0,pct)}" stroke-dashoffset="${-start}" transform="rotate(-90 90 90)"><title>${esc(s.label)}: ${pct.toFixed(2)}%, ${money(s.value)}</title></circle>`}).join('');
+  return `<div class="donut-layout"><svg class="donut" viewBox="0 0 180 180" role="img" aria-label="Portfolio allocation including cash">${arcs}<text x="90" y="87" text-anchor="middle" fill="#eef5f8" font-size="25" font-weight="700">100%</text><text x="90" y="108" text-anchor="middle" fill="#a1b5c3" font-size="10">YOUR PORTFOLIO</text></svg><div class="legend">${entries.map((s,i)=>`<div class="legend-item"><span class="swatch" style="background:${colors[i%colors.length]}"></span><span>${esc(s.label)}</span><strong>${(s.value/total*100).toFixed(2)}%</strong><span class="legend-sub">${money(s.value)}</span><span class="bar"><span style="width:${Math.max(0,Math.min(100,s.value/total*100))}%;background:${colors[i%colors.length]}"></span></span></div>`).join('')}</div></div>`;
+}
+function csv(rows) {
+  // Neutralize spreadsheet formulas in text fields; numbers remain numeric.
+  return rows.map(row=>row.map(v=>{let s=String(v??'');if(typeof v==='string'&&/^[=+\-@\t\r]/.test(s))s="'"+s;return '"'+s.replaceAll('"','""')+'"'}).join(',')).join('\r\n');
+}
+
+import {createClient} from 'https://esm.sh/@supabase/supabase-js@2.117.1?target=es2022';
+
+// Retains the existing project, team-code login and server-side market-order RPC.
+const sb=createClient('https://yhxndiqxapmlhfnsnymh.supabase.co','sb_publishable_uQdNB2-9eC8JfIsqbHnFNQ_eNEUJzmK',{
+  auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}
+});
+const $=id=>document.getElementById(id),PAGE=40;
+const freshState=()=>({session:null,team:null,set:null,p:null,stocks:[],trades:[],news:[],histories:new Map(),results:[],resultsError:'',view:'market',chartId:null,page:0,asOf:null,fresh:false,loading:false,order:null,submitting:false,performance:[]});
+let S=freshState(),generation=0,chartRequest=0,profileRequest=0,loadPromise=null,toastTimer;
+const ok=r=>{if(r.error)throw r.error;return r.data;};
+const revealed=()=>S.set?.results_revealed===true&&S.set?.is_finalized===true;
+const tradable=()=>S.fresh&&S.set?.market_status==='OPEN'&&S.set?.is_finalized===false&&S.set?.results_revealed===false&&navigator.onLine;
+const current=token=>token===generation&&!!S.session;
+const owned=id=>Number(S.p?.holdings?.find(h=>h.stock_id===id)?.quantity||0);
+const pendingKey=()=>S.session?'marketarena.pending.'+S.session.user.id:null;
+function toast(message,bad=false){$('toast').textContent=message;$('toast').className='toast'+(bad?' neg':'');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.add('hide'),5000);}
+function pending(value){const k=pendingKey();if(!k)return;try{value?sessionStorage.setItem(k,JSON.stringify(value)):sessionStorage.removeItem(k);}catch{}}
+function restorePending(){try{const v=JSON.parse(sessionStorage.getItem(pendingKey())||'null');if(v&&/^[0-9a-f-]{36}$/i.test(v.p_client_order_id)&&Number.isSafeInteger(v.p_quantity)&&v.p_quantity>0&&['BUY','SELL'].includes(v.p_side))return v;}catch{}return null;}
+function clearSession(message=''){
+  generation++;chartRequest++;profileRequest++;loadPromise=null;S=freshState();
+  $('modal').close();$('modal').innerHTML='';$('app').classList.add('hide');$('login').classList.remove('hide');
+  for(const id of ['stocks','holdings','trades','news','allocation','performance-chart','performance-data','price-chart','price-data','results','account-details'])$(id).replaceChildren();
+  for(const id of ['team','price-summary','price-note','performance-note','history-count','page-label','chart-stock'])$(id).replaceChildren();
+  for(const id of ['nav','cash','hv','ret','upnl','rpnl']){$(id).textContent='—';$(id).className='';}
+  $('status').textContent='—';$('status').className='status';$('hint').textContent='Loading…';$('sync').textContent='Loading account…';$('sync').className='sync';
+  $('history-side').value='ALL';$('performance-mode').value='value';$('price-range').value='all';setView('market');
+  $('results-tab').classList.add('hide');$('notice').classList.add('hide');$('toast').classList.add('hide');$('err').textContent=message;$('pass').value='';
+}
+async function login(ev){
+  ev.preventDefault();$('signin').disabled=true;$('err').textContent='';
+  try{
+    const code=$('code').value.trim().toLowerCase();
+    if(!/^[a-z0-9_-]+$/.test(code))throw new Error('Enter the team code supplied by your organizer.');
+    const r=await sb.auth.signInWithPassword({email:code+'@trading.local',password:$('pass').value});
+    if(r.error)throw new Error('Invalid team code or password.');
+    await enter(r.data.session);
+  }catch(err){$('err').textContent=err.message||'Sign-in unavailable. Try again.';}
+  finally{$('signin').disabled=false;}
+}
+async function enter(session){
+  if(!session)return;clearSession();S.session=session;const token=generation;
+  try{
+    const team=ok(await sb.from('teams').select('id,team_code,team_name,created_at').eq('auth_user_id',session.user.id).eq('is_active',true).single());
+    if(!current(token))return;S.team=team;
+    $('login').classList.add('hide');$('app').classList.remove('hide');$('pass').value='';
+    await load();
+  }catch(err){if(current(token))clearSession('This account could not load its active team. Please sign in again.');}
+}
+
+async function allTrades(teamId,expectedCount,token){
+  // Ascending immutable records + explicit team filter avoid the RPC's 1,000-row cap.
+  // Count reconciliation rejects a partial record if another team session trades mid-fetch.
+  let rows=[],offset=0;
+  while(rows.length<expectedCount){
+    if(!current(token))throw new Error('Session changed.');
+    const batch=ok(await sb.from('transactions').select('id,client_order_id,stock_id,side,quantity,price,gross_amount,cost_basis_per_share,realized_pnl,cash_after,created_at')
+      .eq('team_id',teamId).order('created_at',{ascending:true}).order('id',{ascending:true}).range(offset,offset+499))||[];
+    rows.push(...batch);offset+=batch.length;if(!batch.length)break;
+  }
+  if(rows.length!==expectedCount||new Set(rows.map(t=>t.id)).size!==rows.length)throw new Error('The account changed while loading. Refresh to get its complete trade history.');
+  return rows;
+}
+async function historyFor(stock,token){
+  const stamp=[stock.updated_at,stock.current_price,stock.previous_price].join('|');
+  const cached=S.histories.get(stock.id);if(cached?.stamp===stamp&&!cached.error)return cached;
+  try{
+    const rows=ok(await sb.rpc('get_market_price_history',{p_stock_id:stock.id,p_limit:1000}))||[];
+    const result={rows,stamp,truncated:rows.length>=1000};
+    if(current(token))S.histories.set(stock.id,result);return result;
+  }catch(error){const result={rows:[],stamp,error};if(current(token))S.histories.set(stock.id,result);return result;}
+}
+async function load(){
+  if(!S.session||!S.team)return;
+  if(loadPromise)return loadPromise;
+  const token=generation;S.loading=true;$('refresh').disabled=true;
+  const work=(async()=>{
+    try{
+      // Read the reveal gate first and discard previously revealed rows on any failure.
+      const settings=ok(await sb.from('competition_settings').select('competition_name,starting_cash,market_status,is_finalized,results_revealed,finalized_at,rules_version').eq('id',1).single());
+      if(!current(token))return;S.set=settings;S.results=[];S.resultsError='';renderGate();updateTicket();
+      const [stocks,p,news]=await Promise.all([
+        sb.from('stocks').select('id,ticker,company_name,sector,current_price,previous_price,sort_order,updated_at').eq('is_active',true).order('sort_order'),
+        sb.rpc('get_my_portfolio'),
+        sb.from('news_events').select('information_type,headline,body,published_at').eq('is_published',true).order('published_at',{ascending:false})
+      ]);
+      const portfolio=ok(p),market=ok(stocks),released=ok(news);
+      const trades=Number(portfolio.trade_count)===S.trades.length?S.trades:await allTrades(S.team.id,Number(portfolio.trade_count),token);
+      if(!current(token))return;
+      if(portfolio.team_code!==S.team.team_code)throw new Error('Account identity changed. Sign in again.');
+      S.p=portfolio;S.stocks=market||[];S.news=released||[];S.trades=trades;S.asOf=new Date().toISOString();S.fresh=true;
+      if(!S.chartId||!S.stocks.some(s=>s.id===S.chartId))S.chartId=S.stocks[0]?.id;
+      render();
+      const ids=new Set(S.trades.map(t=>t.stock_id));ids.add(S.chartId);
+      await Promise.all(S.stocks.filter(s=>ids.has(s.id)).map(s=>historyFor(s,token)));
+      if(!current(token))return;renderPrice();renderPerformance();
+      if(revealed()){
+        try{const rows=ok(await sb.rpc('get_final_results'))||[];if(current(token)&&revealed())S.results=rows;}
+        catch(err){if(current(token)){S.results=[];S.resultsError='Final results could not be loaded. Use Refresh to retry.';}}
+        if(current(token))renderResults();
+      }
+    }catch(err){
+      if(!current(token))return;
+      S.fresh=false;S.results=[];S.resultsError='Latest results unavailable.';S.set=null;renderGate();updateTicket();
+      $('sync').className='sync error';$('sync').textContent='Connection or account update failed. Trading is disabled until Refresh succeeds.';
+      $('hint').textContent='Refresh required';$('stocks').querySelectorAll('[data-side]').forEach(b=>b.disabled=true);
+      $('holdings').querySelectorAll('[data-side]').forEach(b=>b.disabled=true);toast(err.message||'Unable to refresh the account.',true);
+    }finally{if(current(token)){S.loading=false;$('refresh').disabled=false;}}
+  })();
+  loadPromise=work;
+  await work;
+  if(loadPromise===work)loadPromise=null;
+}
+function renderGate(){
+  const visible=revealed();$('results-tab').classList.toggle('hide',!visible);
+  if(!visible){S.results=[];$('results').replaceChildren();if(S.view==='results')setView('account');}
+  $('notice').classList.toggle('hide',!S.set?.is_finalized);
+  $('notice').textContent=visible?'Final results have been revealed. Open Final results to view the official standings.':'Trading has finished. Your account remains available; official results are awaiting the organizer’s reveal.';
+  if(S.set){$('status').textContent=S.set.is_finalized?'FINALIZED':S.set.market_status;$('status').className='status '+S.set.market_status;}
+}
+function setView(name){if(name==='results'&&!revealed())name='account';S.view=name;document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hide',v.id!=='view-'+name));document.querySelectorAll('[data-view]').forEach(b=>{b.classList.toggle('active',b.dataset.view===name);b.setAttribute('aria-current',b.dataset.view===name?'page':'false');});}
+function render(){
+  if(!S.p)return;const p=S.p,holdings=p.holdings||[];renderGate();setView(S.view);
+  $('team').textContent=p.team_name+' · '+p.team_code+' · Private portfolio';
+  $('sync').className='sync';$('sync').textContent='Updated '+time(S.asOf)+' PKT · Refreshes every 10 seconds';
+  for(const [id,key] of [['nav','total_portfolio_value'],['cash','cash_balance'],['hv','holdings_market_value'],['upnl','unrealized_pnl'],['rpnl','realized_pnl']])$(id).textContent=money(p[key]);
+  for(const [id,key] of [['upnl','unrealized_pnl'],['rpnl','realized_pnl'],['ret','return_pct']])$(id).className=tone(p[key]);
+  $('ret').textContent=percent(p.return_pct);$('hint').textContent=tradable()?'Trading OPEN':'Trading unavailable';
+  $('stocks').innerHTML=S.stocks.map(s=>{const h=holdings.find(h=>h.stock_id===s.id),move=Number(s.previous_price)>0?(s.current_price-s.previous_price)/s.previous_price*100:0;return `<tr><td><span class="ticker">${esc(s.ticker)}</span><br><span class="muted">${esc(s.company_name)}</span></td><td>${esc(s.sector)}</td><td>${money(s.current_price)}</td><td class="${tone(move)}">${percent(move)}</td><td>${h?Number(h.quantity).toLocaleString()+' sh':'—'}</td><td><div class="row-buttons"><button class="btn" data-chart="${esc(s.id)}" aria-label="${esc(s.ticker)} price chart">Chart</button><button class="btn" data-info="${esc(s.id)}" aria-label="${esc(s.ticker)} company information">Info</button><button class="btn buy" data-side="BUY" data-id="${esc(s.id)}" ${tradable()?'':'disabled'}>Buy</button><button class="btn sell" data-side="SELL" data-id="${esc(s.id)}" ${tradable()&&Number(h?.quantity)>0?'':'disabled'}>Sell</button></div></td></tr>`}).join('');
+  $('holdings').innerHTML=holdings.length?holdings.map(h=>`<tr><td><span class="ticker">${esc(h.ticker)}</span><br><span class="muted">${esc(h.company_name)}</span></td><td>${Number(h.quantity).toLocaleString()}</td><td>${money(h.average_cost,4)}</td><td>${money(h.cost_basis)}</td><td>${money(h.current_price)}</td><td>${money(h.market_value)}</td><td class="${tone(h.unrealized_pnl)}">${money(h.unrealized_pnl)}</td><td class="${tone(h.unrealized_pnl)}">${Number(h.cost_basis)>0?percent(h.unrealized_pnl/h.cost_basis*100):'—'}</td><td>${Number(h.allocation_pct).toFixed(2)}%</td><td><button class="btn sell" data-side="SELL" data-id="${esc(h.stock_id)}" ${tradable()?'':'disabled'}>Sell</button></td></tr>`).join(''):'<tr><td colspan="10"><div class="empty">No holdings yet. Your cash remains available for trading when the market opens.</div></td></tr>';
+  $('account-details').innerHTML=[['Team',p.team_name,p.team_code],['Starting cash',money(p.starting_cash),'Initial virtual balance'],['Invested amount',money(p.invested_cost_basis),'Cost basis of current holdings'],['Total P/L',money(p.total_pnl),'Portfolio value minus starting cash'],['Executed trades',Number(p.trade_count).toLocaleString(),'Complete account record'],['Cash allocation',Number(p.cash_allocation_pct).toFixed(2)+'%','Share of total portfolio value'],['Active holdings',holdings.length,'Companies currently owned'],['Rules',S.set.rules_version||'Frozen specification','No fees, borrowing or short selling']].map(([label,value,note])=>`<div class="card"><small class="muted">${esc(label)}</small><strong class="detail-value">${esc(value)}</strong><small class="muted">${esc(note)}</small></div>`).join('');
+  $('allocation').innerHTML=allocationChart(p);
+  $('news').innerHTML=S.news.length?S.news.map(n=>`<article><time>${esc(time(n.published_at))} PKT · ${esc(n.information_type||'NEWS')}</time><h3>${esc(n.headline)}</h3><p>${esc(n.body)}</p></article>`).join(''):'<div class="empty">No news released yet.</div>';
+  $('chart-stock').innerHTML=S.stocks.map(s=>`<option value="${esc(s.id)}" ${S.chartId===s.id?'selected':''}>${esc(s.ticker+' · '+s.company_name)}</option>`).join('');
+  renderTrades();renderPrice();renderPerformance();updateTicket();
+}
+function filteredTrades(){return [...S.trades].reverse().filter(t=>$('history-side').value==='ALL'||t.side===$('history-side').value);}
+function renderTrades(){
+  const rows=filteredTrades(),pages=Math.max(1,Math.ceil(rows.length/PAGE));S.page=Math.min(S.page,pages-1);
+  $('history-count').textContent=S.trades.length.toLocaleString()+' total trades · '+rows.length.toLocaleString()+' match this filter';
+  $('trades').innerHTML=rows.length?rows.slice(S.page*PAGE,(S.page+1)*PAGE).map(t=>{const stock=S.stocks.find(s=>s.id===t.stock_id);return `<tr><td>${esc(time(t.created_at))}</td><td><b>${esc(stock?.ticker||t.stock_id)}</b></td><td class="${t.side==='BUY'?'pos':'neg'}">${esc(t.side)}</td><td>${Number(t.quantity).toLocaleString()}</td><td>${money(t.price)}</td><td>${money(t.gross_amount)}</td><td class="${tone(t.realized_pnl)}">${money(t.realized_pnl)}</td><td>${money(t.cash_after)}</td><td><details><summary>Details</summary><div class="record-id">Transaction: ${esc(t.id)}<br>Order: ${esc(t.client_order_id)}<br>Cost basis/share: ${money(t.cost_basis_per_share,4)}</div></details></td></tr>`}).join(''):'<tr><td colspan="9"><div class="empty">No executed trades in this view.</div></td></tr>';
+  $('page-label').textContent='Page '+(S.page+1)+' of '+pages;$('prev-page').disabled=S.page===0;$('next-page').disabled=S.page>=pages-1;$('export').disabled=!S.trades.length;
+}
+function renderPrice(){
+  const stock=S.stocks.find(s=>s.id===S.chartId);if(!stock)return;
+  const h=S.histories.get(stock.id);$('price-summary').innerHTML=`<div><small class="muted">${esc(stock.ticker)} · Current price</small><b>${money(stock.current_price)}</b></div>`;
+  $('price-data').replaceChildren();
+  if(!h||h.error){$('price-chart').innerHTML=`<div class="chart-empty">${h?.error?'Price history is unavailable. Use Refresh to retry.':'Loading released price history…'}</div>`;return;}
+  const all=pricePoints(h.rows),limit=$('price-range').value,points=limit==='all'?all:all.slice(-Number(limit));
+  $('price-chart').innerHTML=lineChart(points,{id:'price',label:stock.ticker+' price history'});bindChart($('price-chart'),points);
+  $('price-data').innerHTML=observationsTable(points,money,'Price');
+  $('price-note').textContent=h.truncated?'Showing the latest 1,000 available observations; earlier history is not included.':points.length<=1?'No price changes have been released yet. The chart shows the current observation only.':'Recorded price observations in PKT. Steps show actual price changes; no forecast is included.';
+}
+function renderPerformance(){
+  if(!S.p)return;
+  try{
+    const points=reconstructPerformance({transactions:S.trades,histories:S.histories,portfolio:S.p,startedAt:S.team.created_at,asOf:S.asOf});S.performance=points;
+    const isPct=$('performance-mode').value==='return',display=points.map(p=>({...p,y:isPct?(p.y/Number(S.p.starting_cash)-1)*100:p.y})),format=isPct?percent:money;
+    $('performance-chart').innerHTML=lineChart(display,{id:'performance',label:isPct?'Own portfolio return':'Own portfolio value',format,percentMode:isPct,baseline:isPct?0:Number(S.p.starting_cash)})+'<div class="chart-key">Dashed line · '+(isPct?'0% starting return':money(S.p.starting_cash)+' starting cash')+'</div>';
+    bindChart($('performance-chart'),display,{format});$('performance-data').innerHTML=observationsTable(display,format,isPct?'Return':'Portfolio value');
+    $('performance-note').textContent='Reconstructed from your complete executed trades and recorded market prices. Cash plus holdings at each observation; latest value matches your account. All times PKT.';
+  }catch(error){S.performance=[];$('performance-chart').innerHTML='<div class="chart-empty">'+esc(error.message)+'</div>';$('performance-data').replaceChildren();$('performance-note').textContent='Current account totals above remain available. No estimated history is shown.';}
+}
+async function selectChart(id){S.chartId=id;$('chart-stock').value=id;setView('market');renderPrice();const request=++chartRequest,token=generation;const stock=S.stocks.find(s=>s.id===id);if(stock){await historyFor(stock,token);if(current(token)&&request===chartRequest&&S.chartId===id)renderPrice();}}
+function renderResults(){
+  if(!revealed()){$('results').replaceChildren();return;}
+  if(S.resultsError||!S.results.length){$('results').innerHTML='<div class="card empty">'+esc(S.resultsError||'No official result rows are available yet. Use Refresh to check again.')+'</div>';return;}
+  const own=S.results.find(r=>r.team_code===S.p.team_code);
+  $('results').innerHTML=`<section class="card final-hero"><div class="eyebrow">OFFICIAL FINAL REVEAL</div><div class="row wrap-row"><div><h2>Competition complete</h2><p class="muted">Frozen results · ${esc(time(S.set.finalized_at))} PKT</p></div>${own?`<div><small class="muted">Your final rank</small><div class="final-rank">#${esc(own.rank)}</div></div>`:''}</div>${own?`<div class="grid account-details">${[['Your final value',money(own.final_portfolio_value)],['Final return',percent(own.return_pct)],['Closing cash',money(own.cash_balance)],['Closing holdings',money(own.holdings_value)]].map(([k,v])=>`<div><small class="muted">${k}</small><b class="detail-value">${v}</b></div>`).join('')}</div>`:'<p>Your team is not present in this official snapshot. Contact the organizer.</p>'}</section><section class="card"><h2>Final standings</h2><p class="muted small">Official values and ranks supplied by the organizer’s finalized snapshot. Final value = closing cash + holdings valued at frozen closing prices.</p><div class="scroll" tabindex="0" role="region" aria-label="Official final standings"><table class="results-table"><thead><tr><th>Rank</th><th>Team</th><th>Closing cash</th><th>Closing holdings</th><th>Final value</th><th>Return</th><th>Trades</th></tr></thead><tbody>${S.results.map(r=>`<tr class="${r.team_code===S.p.team_code?'my-result':''}"><td><b>#${esc(r.rank)}</b></td><td><b>${esc(r.team_name)}</b>${r.team_code===S.p.team_code?'<span class="badge">YOUR TEAM</span>':''}<br><span class="muted">${esc(r.team_code)}</span></td><td>${money(r.cash_balance)}</td><td>${money(r.holdings_value)}</td><td><b>${money(r.final_portfolio_value)}</b></td><td class="${tone(r.return_pct)}">${percent(r.return_pct)}</td><td>${Number(r.trade_count).toLocaleString()}</td></tr>`).join('')}</tbody></table></div></section>`;
+}
+
+function openModal(html,order=false){$('modal').className=order?'order':'';$('modal').innerHTML='<button class="x" data-close aria-label="Close dialog">×</button>'+html;if(!$('modal').open)$('modal').showModal();}
+async function info(id){
+  const s=S.stocks.find(x=>x.id===id);if(!s)return;const token=generation,request=++profileRequest;
+  openModal('<h2>'+esc(s.ticker)+' · Company information</h2><p class="muted">Loading…</p>');
+  const [a,b]=await Promise.all([sb.from('company_profiles').select('tagline,ceo,headquarters,volatility_class,latest_eps_pkr,pe_ratio_x,dividend_yield_pct,company_summary,business_model,public_strategy,known_risks,catalyst_watchlist').eq('stock_id',id).single(),sb.from('company_financials').select('fiscal_year,revenue_pkr_bn,net_profit_pkr_bn,eps_pkr,roe_pct').eq('stock_id',id).order('fiscal_year',{ascending:false})]);
+  if(!current(token)||request!==profileRequest||!$('modal').open)return;
+  if(a.error){openModal('<h2>Company information unavailable</h2><p>Please close this panel and try again.</p>');return;}
+  const p=a.data;openModal(`<h2>${esc(s.ticker)} — ${esc(s.company_name)}</h2><p class="muted">${esc(p.tagline)}</p><div class="grid facts">${[['CEO',p.ceo],['HQ',p.headquarters],['Volatility',p.volatility_class],['EPS',p.latest_eps_pkr],['P/E',p.pe_ratio_x],['Dividend yield %',p.dividend_yield_pct]].map(([k,v])=>`<div><small class="muted">${k}</small><b>${esc(v??'—')}</b></div>`).join('')}</div><p style="margin-top:20px">${esc(p.company_summary)}</p>${[['Business model',p.business_model],['Strategy',p.public_strategy],['Risks',p.known_risks],['Catalysts',p.catalyst_watchlist]].map(([k,v])=>`<p><b>${k}:</b> ${esc(v)}</p>`).join('')}<h3>Financials</h3>${b.error?'<p>Financial statements unavailable. Try again.</p>':(b.data||[]).map(f=>`<p><b>FY ${esc(f.fiscal_year)}</b> · Revenue ${esc(f.revenue_pkr_bn)}bn · Net profit ${esc(f.net_profit_pkr_bn)}bn · EPS ${esc(f.eps_pkr)} · ROE ${esc(f.roe_pct)}%</p>`).join('')}`);
+}
+function trade(id,side){
+  const unresolved=restorePending();
+  if(unresolved){id=unresolved.p_stock_id;side=unresolved.p_side;}
+  const s=S.stocks.find(x=>x.id===id);if(!s||(!tradable()&&!unresolved))return;
+  S.order={id,side,payload:unresolved};
+  openModal(`<h2>${esc(side)} ${esc(s.ticker)}</h2><p class="muted">${esc(s.company_name)}</p><div class="ticket-row"><span>Current price</span><b id="ticket-price"></b></div><div class="ticket-row"><span>Cash available</span><b id="ticket-cash"></b></div><div class="ticket-row"><span>Shares owned</span><b id="ticket-owned"></b></div><form id="trade-form"><div class="field"><label for="qty">Quantity · whole shares</label><input id="qty" type="number" min="1" step="1" inputmode="numeric" required value="${unresolved?unresolved.p_quantity:''}" ${unresolved?'readonly':''}></div><div class="ticket-row"><span>Estimated total</span><b id="estimate">${money(0)}</b></div><p id="ticket-error" class="ticket-error" role="status"></p><button id="go" class="btn full ${side==='BUY'?'buy':'sell'}" type="submit"></button><p class="small muted" style="margin:14px 0 0">Your order executes at the current valid market price. The final amount appears in your trade record. No transaction fee.</p></form>`,true);
+  $('trade-form').onsubmit=executeTrade;$('qty').oninput=updateTicket;updateTicket();$('qty').focus();
+}
+function updateTicket(){
+  if(!$('go')||!S.order)return;const s=S.stocks.find(x=>x.id===S.order.id);if(!s)return;
+  const q=Number($('qty').value),valid=Number.isSafeInteger(q)&&q>0;
+  $('ticket-price').textContent=money(s.current_price);$('ticket-cash').textContent=money(S.p?.cash_balance);$('ticket-owned').textContent=owned(s.id).toLocaleString();$('estimate').textContent=valid?money(q*Number(s.current_price)):'—';
+  $('go').disabled=S.submitting||(!S.order.payload&&(!tradable()||!valid));
+  $('go').textContent=S.submitting?'Submitting…':S.order.payload?'Check / retry this order':!tradable()?'Trading unavailable':'Confirm '+S.order.side;
+  if(S.order.payload&&!S.submitting)$('ticket-error').textContent='This order needs confirmation. Check / retry uses the same order reference to prevent duplicate execution.';
+  else if(!tradable()&&!S.submitting)$('ticket-error').textContent='Trading is unavailable. Refresh after the market reopens.';
+}
+async function executeTrade(ev){
+  ev.preventDefault();if(S.submitting||!S.order)return;
+  const token=generation,s=S.stocks.find(x=>x.id===S.order.id),q=Number($('qty').value),side=S.order.side;
+  if(!S.order.payload){
+    if(!tradable()){toast('Trading is unavailable.',true);return;}
+    if(!Number.isSafeInteger(q)||q<=0){toast('Enter a positive whole-share quantity.',true);return;}
+    if(side==='BUY'&&q*Number(s.current_price)>Number(S.p.cash_balance)){toast('Insufficient cash for this quantity.',true);return;}
+    if(side==='SELL'&&q>owned(s.id)){toast('Insufficient shares for this quantity.',true);return;}
+    S.order.payload={p_stock_id:s.id,p_side:side,p_quantity:q,p_client_order_id:crypto.randomUUID()};pending(S.order.payload);
+  }
+  const payload={...S.order.payload};S.submitting=true;$('qty').readOnly=true;updateTicket();$('ticket-error').textContent='';
+  try{
+    const r=await sb.rpc('execute_trade',payload);
+    if(!current(token))return;
+    if(r.error){
+      const definitive=r.status>=400&&r.status<500&&!['408','429'].includes(String(r.status));
+      if(definitive){pending(null);S.order.payload=null;$('qty').readOnly=false;}
+      throw new Error(definitive?r.error.message:'Order confirmation was interrupted. Check / retry this same order.');
+    }
+    const data=r.data;
+    if(!data?.success)throw new Error('Order confirmation was interrupted. Check / retry this same order.');
+    pending(null);S.order=null;$('modal').close();$('modal').innerHTML='';
+    toast((data.duplicate?'Order already recorded: ':'')+data.side+' '+data.quantity+' '+s.ticker+' at '+money(data.price));
+    S.fresh=false;
+    if(loadPromise)await loadPromise;
+    if(current(token))await load();
+  }catch(err){if(current(token)&&$('ticket-error'))$('ticket-error').textContent=err.message||'Order confirmation interrupted. Check / retry this order.';}
+  finally{if(current(token)){S.submitting=false;updateTicket();}}
+}
+function exportHistory(){
+  const header=['Executed at UTC','Executed at PKT','Ticker','Side','Quantity','Execution price PKR','Gross PKR','Cost basis per share PKR','Realized P/L PKR','Cash after PKR','Transaction ID','Client order ID'];
+  const rows=[header,...S.trades.map(t=>[t.created_at,time(t.created_at),S.stocks.find(s=>s.id===t.stock_id)?.ticker||t.stock_id,t.side,Number(t.quantity),Number(t.price),Number(t.gross_amount),Number(t.cost_basis_per_share),Number(t.realized_pnl),Number(t.cash_after),t.id,t.client_order_id])];
+  const url=URL.createObjectURL(new Blob(['\uFEFF'+csv(rows)],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='MarketArena-'+S.p.team_code.replace(/[^a-z0-9_-]/gi,'')+'-all-trades.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+document.addEventListener('click',ev=>{
+  const b=ev.target.closest('button');if(!b||b.disabled)return;
+  if(b.hasAttribute('data-close')){if(S.submitting)return;profileRequest++;$('modal').close();$('modal').innerHTML='';S.order=null;}
+  if(b.dataset.view)setView(b.dataset.view);
+  if(b.dataset.info){S.order=null;info(b.dataset.info);}
+  if(b.dataset.chart){selectChart(b.dataset.chart);$('price-panel').scrollIntoView({block:'start'});}
+  if(b.dataset.side)trade(b.dataset.id,b.dataset.side);
+});
+$('modal').addEventListener('cancel',ev=>{if(S.submitting)ev.preventDefault();else{profileRequest++;S.order=null;$('modal').innerHTML='';}});
+$('login-form').onsubmit=login;$('refresh').onclick=load;
+$('out').onclick=async()=>{clearSession();await sb.auth.signOut();};
+$('chart-stock').onchange=()=>selectChart($('chart-stock').value);$('price-range').onchange=renderPrice;$('performance-mode').onchange=renderPerformance;
+$('history-side').onchange=()=>{S.page=0;renderTrades()};$('prev-page').onclick=()=>{S.page--;renderTrades()};$('next-page').onclick=()=>{S.page++;renderTrades()};$('export').onclick=exportHistory;
+window.addEventListener('offline',()=>{S.fresh=false;S.set=null;S.results=[];renderGate();$('sync').className='sync error';$('sync').textContent='Offline. Reconnect and refresh before trading.';updateTicket();document.querySelectorAll('[data-side]').forEach(b=>b.disabled=true);});
+window.addEventListener('online',()=>load());
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&S.session)load()});
+sb.auth.onAuthStateChange((event,session)=>{
+  if(!session){clearSession();return;}
+  if(S.session&&S.session.user.id!==session.user.id){clearSession('The signed-in account changed. Sign in to continue.');return;}
+  if(S.session)S.session=session;
+});
+const {data,error}=await sb.auth.getSession();if(error)clearSession('Please sign in again.');else if(data.session)await enter(data.session);
+setInterval(()=>{if(S.session&&!document.hidden)load();},10000);
+
+</script>
+</body>
+</html>
